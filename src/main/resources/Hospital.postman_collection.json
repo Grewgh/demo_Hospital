@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "a945295e-9d08-4d14-b74d-a17938bf038e",
+		"name": "Hospital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20278016"
+	},
+	"item": [
+		{
+			"name": "swagger",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/v3/api-docs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v3",
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPatient_Practitioner",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const getToken = {\r",
+							"  url: 'http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token',\r",
+							"  method: 'POST',\r",
+							"  headers: {\r",
+							"    'Content-Type': 'application/x-www-form-urlencoded',\r",
+							"  },\r",
+							"  body: {\r",
+							"    mode:'urlencoded',\r",
+							"    urlencoded:[{\r",
+							"        key:\"grant_type\",\r",
+							"        value:'password',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"username\",\r",
+							"        value:'practitioner',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"password\",\r",
+							"        value:'1994',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_id\",\r",
+							"        value:'hospital_client',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_secret\",\r",
+							"        value:'VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk',\r",
+							"        enabled:true\r",
+							"    }]\r",
+							"  },\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(getToken, (error, response) => {\r",
+							"  if (error) {\r",
+							"    console.error('Ошибка при получении токена:', error);\r",
+							"  } else {\r",
+							"    var accessToken = response.json().access_token;\r",
+							"    pm.environment.set('ACCESS_TOKEN', accessToken);\r",
+							"    pm.request.headers.add({\r",
+							"      key: 'Authorization',\r",
+							"      value: 'Bearer ' + accessToken,\r",
+							"    });\r",
+							"  }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "username",
+							"value": "practitioner",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "1994",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "hospital_client",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/hospital/patient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hospital",
+						"patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletePatient_Practitioner",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const getToken = {\r",
+							"  url: 'http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token',\r",
+							"  method: 'POST',\r",
+							"  headers: {\r",
+							"    'Content-Type': 'application/x-www-form-urlencoded',\r",
+							"  },\r",
+							"  body: {\r",
+							"    mode:'urlencoded',\r",
+							"    urlencoded:[{\r",
+							"        key:\"grant_type\",\r",
+							"        value:'password',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"username\",\r",
+							"        value:'practitioner',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"password\",\r",
+							"        value:'1994',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_id\",\r",
+							"        value:'hospital_client',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_secret\",\r",
+							"        value:'VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk',\r",
+							"        enabled:true\r",
+							"    }]\r",
+							"  },\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(getToken, (error, response) => {\r",
+							"  if (error) {\r",
+							"    console.error('Ошибка при получении токена:', error);\r",
+							"  } else {\r",
+							"    var accessToken = response.json().access_token;\r",
+							"    pm.environment.set('ACCESS_TOKEN', accessToken);\r",
+							"    pm.request.headers.add({\r",
+							"      key: 'Authorization',\r",
+							"      value: 'Bearer ' + accessToken,\r",
+							"    });\r",
+							"  }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "username",
+							"value": "practitioner",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "1994",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "hospital_client",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/hospital/patient?id=b988937e-d52f-440d-93c8-c0c89cfaaebc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hospital",
+						"patient"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "b988937e-d52f-440d-93c8-c0c89cfaaebc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addPatient_Practitioner",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const getToken = {\r",
+							"  url: 'http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token',\r",
+							"  method: 'POST',\r",
+							"  headers: {\r",
+							"    'Content-Type': 'application/x-www-form-urlencoded',\r",
+							"  },\r",
+							"  body: {\r",
+							"    mode:'urlencoded',\r",
+							"    urlencoded:[{\r",
+							"        key:\"grant_type\",\r",
+							"        value:'password',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"username\",\r",
+							"        value:'practitioner',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"password\",\r",
+							"        value:'1994',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_id\",\r",
+							"        value:'hospital_client',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_secret\",\r",
+							"        value:'VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk',\r",
+							"        enabled:true\r",
+							"    }]\r",
+							"  },\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(getToken, (error, response) => {\r",
+							"  if (error) {\r",
+							"    console.error('Ошибка при получении токена:', error);\r",
+							"  } else {\r",
+							"    var accessToken = response.json().access_token;\r",
+							"    pm.environment.set('ACCESS_TOKEN', accessToken);\r",
+							"    pm.request.headers.add({\r",
+							"      key: 'Authorization',\r",
+							"      value: 'Bearer ' + accessToken,\r",
+							"    });\r",
+							"  }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "username",
+							"value": "practitioner",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "1994",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "hospital_client",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"qwee\",\r\n        \"gender\": \"MALE\",\r\n        \"birthDate\": \"2024-05-19T13:00:47\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8488/hospital/patient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8488",
+					"path": [
+						"hospital",
+						"patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPatient_Patient",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const getToken = {\r",
+							"  url: 'http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token',\r",
+							"  method: 'POST',\r",
+							"  headers: {\r",
+							"    'Content-Type': 'application/x-www-form-urlencoded',\r",
+							"  },\r",
+							"  body: {\r",
+							"    mode:'urlencoded',\r",
+							"    urlencoded:[{\r",
+							"        key:\"grant_type\",\r",
+							"        value:'password',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"username\",\r",
+							"        value:'patient',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"password\",\r",
+							"        value:'1994',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_id\",\r",
+							"        value:'hospital_client',\r",
+							"        enabled:true\r",
+							"    },\r",
+							"    {\r",
+							"        key:\"client_secret\",\r",
+							"        value:'VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk',\r",
+							"        enabled:true\r",
+							"    }]\r",
+							"  },\r",
+							"};\r",
+							"\r",
+							"// Отправьте запрос на сервер авторизации\r",
+							"pm.sendRequest(getToken, (error, response) => {\r",
+							"  if (error) {\r",
+							"    console.error('Ошибка при получении токена:', error);\r",
+							"  } else {\r",
+							"    var accessToken = response.json().access_token;\r",
+							"    pm.environment.set('ACCESS_TOKEN', accessToken);\r",
+							"    pm.request.headers.add({\r",
+							"      key: 'Authorization',\r",
+							"      value: 'Bearer ' + accessToken,\r",
+							"    });\r",
+							"  }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "username",
+							"value": "practitioner",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "1994",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:8484/realms/Hospital_realm/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "hospital_client",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8488/hospital/patient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8488",
+					"path": [
+						"hospital",
+						"patient"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
