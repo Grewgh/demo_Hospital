@@ -1,0 +1,30 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://agrb-postgresql-1:5432/bitnami_keycloak
+    username: bn_keycloak
+    password: nil
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: hospital_client
+            client-secret: VaLRuaSkOYBYfnCbZwL9HadLYnUIPyXk
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          keycloak:
+            issuer-uri: http://agrb-keycloak-1:8080/realms/Hospital_realm
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://agrb-keycloak-1:8080/realms/Hospital_realm
